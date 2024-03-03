@@ -14,9 +14,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 
-dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
-if os.path.exists(dotenv_path):
-    load_dotenv(dotenv_path)
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,15 +35,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "about.apps.AboutConfig",
-    "catalog.apps.CatalogConfig",
-    "homepage.apps.HomepageConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "about.apps.AboutConfig",
+    "catalog.apps.CatalogConfig",
+    "homepage.apps.HomepageConfig",
 ]
 
 MIDDLEWARE = [
