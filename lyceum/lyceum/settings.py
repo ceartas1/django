@@ -23,11 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", "FAKE")
+load_dotenv()
 
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "FAKE")
+DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -121,6 +122,17 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+if DEBUG:
+    INTERNAL_IPS = [
+        "127.0.0.1",
+    ]
+    INSTALLED_APPS.append(
+        "debug_toolbar",
+    )
+    MIDDLEWARE.append(
+        "debug_toolbar.midleware.DebugToolbarMiddleware",
+    )
 
 
 # Static files (CSS, JavaScript, Images)
