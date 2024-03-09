@@ -19,10 +19,6 @@
 
 ### запустите проект 
 
-``` python lyceum/manage.py runserver ``` 
-
-или 
-
 ``` cd lyceum```
 
 ``` python manage.py runserver```
