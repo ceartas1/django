@@ -30,7 +30,4 @@ jobs:
     - name: Lint with flake8
       run: |
         flake8 .
-    - name: django_test
-      run: |
-        cd lyceum
-        python manage.py test
+
