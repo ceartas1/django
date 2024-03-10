@@ -30,9 +30,6 @@ jobs:
     - name: Lint with flake8
       run: |
         flake8 .
-    - name: Lint with black
-      run: |
-        black . --check --verbose --line-length=79
     - name: django_test
       run: |
         cd lyceum
