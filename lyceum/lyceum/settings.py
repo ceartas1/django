@@ -14,14 +14,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 load_dotenv()
-DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
 
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'FAKE')
+DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '*').split(',')
 
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'FAKE')
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'about.apps.AboutConfig',
