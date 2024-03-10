@@ -29,5 +29,8 @@ jobs:
         pip install -r requirements/test.txt
     - name: Lint with flake8
       run: |
-        flake8 .
-
+        flake8 .    
+    - name: django_test
+      run: |
+        cd lyceum
+        python manage.py test
