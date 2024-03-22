@@ -36,11 +36,31 @@ class HomePageEndPointTest(TestCase):
 
 
 class CatalogDBTest(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.category = catalog.models.Category(
+            name="test",
+            slug="test",
+        )
+        cls.category.full_clean()
+        cls.category.save()
+        cls.tag = catalog.models.Tag(
+            name="test",
+            slug="test",
+        )
+        cls.tag.full_clean()
+        cls.tag.save()
+        return super().setUpClass()
+
     def test_add_validate_item(self):
         item = catalog.models.Item(
             name="test",
             text="превосходно",
+            category=self.category,
         )
+        item.full_clean()
+        item.save()
+        item.tags.add(self.tag)
         item.full_clean()
         item.save()
 
@@ -49,6 +69,10 @@ class CatalogDBTest(TestCase):
             item = catalog.models.Item(
                 name="test",
                 text="test",
+                category=self.category,
             )
+            item.full_clean()
+            item.save()
+            item.tags.add(self.tag)
             item.full_clean()
             item.save()

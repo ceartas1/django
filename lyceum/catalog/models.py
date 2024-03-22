@@ -73,7 +73,7 @@ class Item(django.db.models.Model):
         Category, on_delete=models.CASCADE, verbose_name="категория"
     )
     name = django.db.models.CharField("название", max_length=150)
-    text = django.db.models.TextField("текст")
+    text = django.db.models.TextField("текст", validators=[validator])
 
     def __str__(self):
         return self.name
