@@ -86,7 +86,6 @@ class CatalogDBTest(TestCase):
         item.full_clean()
         item.save()
         item.delete()
-        print("удалено")
 
     def test_search_items_by_category(
         self,

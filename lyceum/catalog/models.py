@@ -33,15 +33,16 @@ class Tag(django.db.models.Model):
 
     class Meta:
         verbose_name_plural = "Теги"
+        verbose_name = "Тег"
 
 
 class Category(django.db.models.Model):
     is_published = models.BooleanField(
-        "опубликовано",
+        "Опубликовано",
         default=True,
     )
     name = models.CharField(
-        "название",
+        "Название",
         max_length=150,
     )
 
@@ -59,6 +60,7 @@ class Category(django.db.models.Model):
 
     class Meta:
         verbose_name_plural = "Категории"
+        verbose_name = "Категория"
 
 
 class Item(django.db.models.Model):
