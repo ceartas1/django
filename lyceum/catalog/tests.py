@@ -76,3 +76,20 @@ class CatalogDBTest(TestCase):
             item.tags.add(self.tag)
             item.full_clean()
             item.save()
+
+    def test_add_validate_category(self):
+        category = catalog.models.Category(
+            name="test",
+            slug="test1",
+            weight="100"
+        )
+        category.full_clean()
+        category.save()
+
+    def test_add_validate_tag(self):
+        tag = catalog.models.Tag(
+            name="test",
+            slug="test1",
+        )
+        tag.full_clean()
+        tag.save()
