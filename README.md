@@ -23,3 +23,4 @@
 
 ``` python manage.py runserver```
 
+![Image alt](https://github.com/ceartas1/django/blob/main/ER.png)
