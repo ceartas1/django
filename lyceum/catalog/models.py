@@ -46,9 +46,19 @@ class Category(Core):
         "Слаг",
         max_length=200,
         unique=True,
+        validators=[
+            django.core.validators.RegexValidator(r"^[a-zA-Z0-9_-]+$")
+        ],
     )
     weight = django.db.models.IntegerField(
-        "Вес", default=100, null=True, blank=True
+        "Вес",
+        default=100,
+        null=True,
+        blank=True,
+        validators=[
+            django.core.validators.MinValueValidator(0),
+            django.core.validators.MaxValueValidator(32767),
+        ],
     )
 
     def __str__(self):
