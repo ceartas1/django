@@ -52,7 +52,7 @@ class CatalogDBTest(TestCase):
         cls.tag.save()
         return super().setUpClass()
 
-    def test_add_validate_item(self):
+    def test_add_validate_item(self):  # тест на валидатор без ошибок
         item = catalog.models.Item(
             name="test",
             text="превосходно",
@@ -64,7 +64,7 @@ class CatalogDBTest(TestCase):
         item.full_clean()
         item.save()
 
-    def test_add_novalidate_item(self):
+    def test_add_novalidate_item(self):  # тест на ошибку валидтора
         with self.assertRaises(ValidationError):
             item = catalog.models.Item(
                 name="test",
@@ -76,3 +76,50 @@ class CatalogDBTest(TestCase):
             item.tags.add(self.tag)
             item.full_clean()
             item.save()
+
+    def test_delete_item(self):  # удаление элемента
+        item = catalog.models.Item(
+            name="test",
+            text="превосходно",
+            category=self.category,
+        )
+        item.full_clean()
+        item.save()
+        item.delete()
+        print("удалено")
+
+    def test_search_items_by_category(
+        self,
+    ):  # Создание категорий с разными slag
+        category1 = catalog.models.Category.objects.create(
+            name="Category 1", slug="роскошно"
+        )
+        category2 = catalog.models.Category.objects.create(
+            name="Category 2", slug="превосходно"
+        )
+
+        item1 = catalog.models.Item(
+            name="item1",
+            text="роскошно",
+            category=category1,
+        )
+        item1.full_clean()
+        item1.save()
+
+        item2 = catalog.models.Item(
+            name="item2",
+            text="превосходно",
+            category=category2,
+        )
+        item2.full_clean()
+        item2.save()
+
+        items_in_category1 = catalog.models.Item.objects.filter(
+            category=category1
+        )
+        items_in_category2 = catalog.models.Item.objects.filter(
+            category=category2
+        )
+
+        self.assertEqual(items_in_category1.count(), 1)
+        self.assertEqual(items_in_category2.count(), 1)
