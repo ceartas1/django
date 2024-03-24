@@ -11,7 +11,7 @@ def validator(value):
     raise ValidationError("нету слово роскошно или превосходно")
 
 
-class Tag(django.db.models.Model):
+class Core(django.db.models.Model):
     name = django.db.models.CharField(
         "название",
         max_length=150,
@@ -22,6 +22,11 @@ class Tag(django.db.models.Model):
         default=True,
     )
 
+    class Meta:
+        abstract = True
+
+
+class Tag(Core):
     slug = django.db.models.SlugField(
         "слаг",
         max_length=200,
@@ -36,16 +41,7 @@ class Tag(django.db.models.Model):
         verbose_name = "Тег"
 
 
-class Category(django.db.models.Model):
-    is_published = models.BooleanField(
-        "Опубликовано",
-        default=True,
-    )
-    name = models.CharField(
-        "Название",
-        max_length=150,
-    )
-
+class Category(Core):
     slug = django.db.models.SlugField(
         "Слаг",
         max_length=200,
@@ -63,18 +59,13 @@ class Category(django.db.models.Model):
         verbose_name = "Категория"
 
 
-class Item(django.db.models.Model):
-    is_published = django.db.models.BooleanField(
-        "опубликовано",
-        default=True,
-    )
+class Item(Core):
     tags = models.ManyToManyField(
         Tag, related_name="items", verbose_name="теги"
     )
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, verbose_name="категория"
     )
-    name = django.db.models.CharField("название", max_length=150)
     text = django.db.models.TextField("текст", validators=[validator])
 
     def __str__(self):
