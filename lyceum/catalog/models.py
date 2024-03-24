@@ -1,3 +1,4 @@
+from core.models import AbstractModel
 from django.core.exceptions import ValidationError
 import django.db
 from django.db import models
@@ -11,24 +12,9 @@ def validator(value):
     raise ValidationError("нету слово роскошно или превосходно")
 
 
-class Core(django.db.models.Model):
-    name = django.db.models.CharField(
-        "название",
-        max_length=150,
-    )
-
-    is_published = django.db.models.BooleanField(
-        "опубликовано",
-        default=True,
-    )
-
-    class Meta:
-        abstract = True
-
-
-class Tag(Core):
+class Tag(AbstractModel):
     slug = django.db.models.SlugField(
-        "слаг",
+        "Слаг",
         max_length=200,
         unique=True,
     )
@@ -41,7 +27,7 @@ class Tag(Core):
         verbose_name = "Тег"
 
 
-class Category(Core):
+class Category(AbstractModel):
     slug = django.db.models.SlugField(
         "Слаг",
         max_length=200,
@@ -69,12 +55,12 @@ class Category(Core):
         verbose_name = "Категория"
 
 
-class Item(Core):
+class Item(AbstractModel):
     tags = models.ManyToManyField(
-        Tag, related_name="items", verbose_name="теги"
+        Tag, related_name="items", verbose_name="Теги"
     )
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, verbose_name="категория"
+        Category, on_delete=models.CASCADE, verbose_name="Категория"
     )
     text = django.db.models.TextField("текст", validators=[validator])
 
